@@ -22,8 +22,8 @@ public class Main {
 		int [][] A = image_to_Matrix.getMatrix(image);// matriz original da imagem
 		int[][] At = image_to_Matrix.getMatrixTransposed
 				(A, image.getWidth(), image.getHeight());// matriz transposta da imagem	
-		int [][] U = image_to_Matrix.multiply_matrices(A, At);
-		image_to_Matrix.print_matrix(U, image.getWidth(), image.getWidth());
+		int [][] U = image_to_Matrix.multiplyMatrices(A, At);
+		image_to_Matrix.printMatrix(U, image.getWidth(), image.getWidth());//imprime a multiplicação das matrizes
 		
 		
 		
