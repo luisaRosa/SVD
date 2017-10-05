@@ -16,7 +16,7 @@ public class Image_to_Matrix {
 		return A;
 	}
 	
-	public void print_matrix(int [][] matrix, int w, int h) {// imprime uma dada matriz
+	public void printMatrix(int [][] matrix, int w, int h) {// imprime uma dada matriz
 		
 		for(int x=0; x< w;x++) {
 			for(int y=0; y< h;y++) 
@@ -35,7 +35,7 @@ public class Image_to_Matrix {
 		return At;
 	}
 	
-	public int[][] multiply_matrices(int[][] A, int [][] At){
+	public int[][] multiplyMatrices(int[][] A, int [][] At){
 		int [][] U = new int[A.length][A.length];
 		System.out.println(A.length +" "+ At.length);
 				
