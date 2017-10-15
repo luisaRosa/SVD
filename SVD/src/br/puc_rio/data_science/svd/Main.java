@@ -6,30 +6,31 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import Jama.SingularValueDecomposition;
+import Jama.Matrix;
+
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Image_to_Matrix image_to_Matrix = new Image_to_Matrix();
-		BufferedImage image = null;
-		File arq = new File("images/image1.jpg");
+		/* Pega uma imagem qualquer e transforma em uma matriz de pixels*/
+	    ImageToMatrix imageToMatrix = new ImageToMatrix();
+	   	BufferedImage image = null;
+		File arq = new File("images/image.jpg");
 		try {
 			image = ImageIO.read(arq);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(image.getWidth()+" "+ image.getHeight());
-		int [][] A = image_to_Matrix.getMatrix(image);// matriz original da imagem
-		int[][] At = image_to_Matrix.getMatrixTransposed
-				(A, image.getWidth(), image.getHeight());// matriz transposta da imagem	
-		int [][] U = image_to_Matrix.multiplyMatrices(A, At);
-		image_to_Matrix.printMatrix(U, image.getWidth(), image.getWidth());//imprime a multiplicação das matrizes
+		Matrix A = new Matrix(imageToMatrix.imageToMatrix(image));// matriz gerada
 		
-		
-		
-		
-		
-	
-	
-
-}}
+		/* Decomposição da matriz da imagem nas suas componentes do SVD*/		
+		 SingularValueDecomposition SVD = A.svd();
+		 Matrix U = SVD.getU();
+		 Matrix S = SVD.getS();
+		 Matrix V = SVD.getV();
+		imageToMatrix.printMatrix(U.getArray(),image.getWidth(), image.getWidth());
+		imageToMatrix.printMatrix(S.getArray(),image.getHeight(), image.getHeight());
+		imageToMatrix.printMatrix(V.getArray(),image.getHeight(), image.getHeight());
+   } 
+}
