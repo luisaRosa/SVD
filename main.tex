@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+
+\usepackage{amsmath}
+
+\author{
+  Luisa Rosa
+  \and
+  Rebeca Bordini
+}
+\title{INF2978 Algoritmos para Data Science}
+
+\date{Outubro 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Exercício 3.27}
+\section{Exercício 3.30}
+
+\begin{enumerate}
+    \item Mostre que os elementos de $XX^{T}$ são dados por
+ 
+ \begin{equation} \label{eq:1}
+    x_{i}x_{j}^{T} = -\frac{1}{2}
+    \left(d_{{i}{j}}^{2} - \frac{1}{n}\sum_{k=1}^{n}d_{{i}{k}}^{2} -
+    \frac{1}{n}\sum_{k=1}^{n}d_{{k}{j}}^{2} +
+    \frac{1}{n^2}\sum_{k=1}^{n}\sum_{l=1}^{n}d_{{k}{l}}^{2}\right) 
+\end{equation}
+
+    \textbf{Solução}
+    
+    Dado que \(d_{{i}{j}}^{2} = d_{{j}{i}}^{2} = | x_{i}|^{2} + |x_{j}|^{2} -2x_{i}x_{j}^{T} \) pela definição de D.
+    
+\begin{equation} \label{eq:2}
+\begin{split}
+    \sum_{k=1}^{n}d_{{k}{j}}^2 & = 
+    \sum_{k=1}^{n} \left(| x_{k}|^{2} + |x_{j}|^{2} -2x_{k}x_{j}^{T} \right) \\ 
+    & = \sum_{k=1}^{n}|x_{k}|^{2} + \sum_{k=1}^{n}|x_{j}|^{2} -2 \sum_{k=1}^{n}x_{k}x_{j}^{T}  \\
+    & = \sum_{k=1}^{n}|x_{k}|^{2} + n|x_{j}|^{2} -2x_{j}^{T} \sum_{k=1}^{n}x_{k} \\
+    & = \sum_{k=1}^{n}|x_{k}|^{2} + n|x_{j}|^{2}
+\end{split}
+\end{equation}
+
+De modo análogo:
+
+\begin{equation} \label{eq:3}
+\begin{split}
+    \sum_{k=1}^{n}d_{{i}{k}}^2 & = 
+    \sum_{k=1}^{n} \left(| x_{i}|^{2} + |x_{k}|^{2} -2x_{i}x_{k}^{T} \right) \\ 
+    & = \sum_{k=1}^{n}|x_{i}|^{2} + \sum_{k=1}^{n}|x_{k}|^{2} -2 \sum_{k=1}^{n}x_{i}x_{k}^{T}  \\
+    & = n|x_{i}|^{2} + \sum_{k=1}^{n}|x_{j}|^{2} -2x_{i} \sum_{k=1}^{n}x_{j}^{T} \\
+    & = n|x_{i}|^{2} + \sum_{k=1}^{n}|x_{k}|^{2} 
+\end{split}
+\end{equation}
+
+Além disso, tenho que:
+\begin{equation} \label{eq:4}
+\begin{split}
+    \sum_{k=1}^{n}\sum_{l=1}^{n}d_{{k}{l}}^{2} & = 
+    \sum_{k=1}^{n}\sum_{l=1}^{n} \left(| x_{k}|^{2} + |x_{l}|^{2} -2x_{k}x_{l}^{T} \right) \\
+    & = \sum_{k=1}^{n}\sum_{l=1}^{n}|x_{k}|^{2} + \sum_{k=1}^{n}\sum_{l=1}^{n}|x_{l}|^{2} - 2\sum_{k=1}^{n}\sum_{l=1}^{n}x_{k}x_{l}^{T} \\
+    & = n\sum_{k=1}^{n}|x_{k}|^{2} + n\sum_{l=1}^{n}|x_{l}|^2 -2\sum_{k=1}^{n}x_{k}\sum_{l=1}^{n}x_{j}^{T} \\
+    & = 2n\sum_{k=1}^{n}|x_{k}|^{2}
+\end{split}
+\end{equation}
+    
+Combinando (\ref{eq:2}), (\ref{eq:3}) e (\ref{eq:4}), temos:
+\begin{equation*}
+\begin{split}
+    x_{i}x_{j}^{T} & = -\frac{1}{2} 
+    \left(d_{{i}{j}}^{2} - \frac{1}{n}\sum_{k=1}^{n}d_{{i}{k}}^{2} -
+    \frac{1}{n}\sum_{k=1}^{n}d_{{k}{j}}^{2} +
+    \frac{1}{n^2}\sum_{k=1}^{n}\sum_{l=1}^{n}d_{{k}{l}}^{2}\right) \\
+    & = - \frac{1}{2} \left[ |x_{i}|^{2} + |x_{j}|^{2} -2x_{i}x_{j}^{T} - \frac{1}{n} \left( n|x_{i}|^{2} + \sum_{k=1}^{n}|x_{k}^{2}| \right) 
+    - \frac{1}{n} \left( \sum_{k=1}^{n}|x_{k}|^{2} + n|x_{j}|^{2} \right) + \frac{1}{n^2} \left( 2n \sum_{k=1}^{n}|x_{k}^{2}| \right) \right] \\
+    & = - \frac{1}{2} \left[ |x_{i}|^{2} + |x_{j}|^{2} - 2x_{i}x_{j}^{T} - |x_{i}|^{2} - \frac{1}{n}\sum_{k=1}^{n}|x_{k}|^{2} -\frac{1}{n}\sum_{k=1}^{n}|x_{k}|^{2} - |x_{j}|^{2} + \frac{2}{n}\sum_{k=1}^{n}|x_{k}|^{2} \right] \\
+    & = - \frac{1}{2} \left[ -2x_{i}x_{j}^{T} - \frac{2}{n}\sum_{k=1}^{n}|x_{k}|^{2} + \frac{2}{n}\sum_{k=1}^{n}|x_{k}|^{2} \right] \\
+    & = x_{i}x_{j}^{T}
+\end{split}
+\end{equation*}
+
+    \item Descreva um algoritmo para determinar X cujas linhas são $x_{i}$.
+    
+    Seja $B = XX^{T}$, a partir do item anterior podemos concluir que $x_{i}x_{j}^{T} = x_{j}x_{i}^{T}$, logo B é uma matriz simétrica. Nós podemos aplicar o SVD em B de modo que $B = XX^{T}$, então teremos a matriz $X = UL^{\frac{1}{2}}$.
+    
+\end{enumerate}
+
+\end{document}
